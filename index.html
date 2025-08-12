@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vem aí...</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Outfit", sans-serif;
+        }
+
+        html{
+            height: 100%;
+        }
+        
+        body{
+            background-image: linear-gradient(325deg, rgb(58, 46, 190), rgb(18, 129, 255));
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #message-id {
+            display: none;
+        }
+        
+        #id-message-div {
+            transition: all .3s ease;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-weight: 900;
+            color: white;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            height: 100%;
+        }
+
+        @media (max-width: 400px) {
+            #id-message-div {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (min-width: 400px) and (max-width: 768px) {
+            #id-message-div {
+                font-size: 3.5rem;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1024px) {
+            #id-message-div {
+                font-size: 5rem;
+            }
+        }
+        
+        @media (min-width: 1024px) and (max-width: 1200px) {
+            #id-message-div {
+                font-size: 6rem;
+            }
+        }
+
+        @media (min-width:1200px) {
+            #id-message-div {
+                font-size: 7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <p class="message" id="message-id">Vem aí as Matrículas...</p>
+    <div class="message-div" id="id-message-div"></div>
+    <!-- <button onclick="clique()">Reiniciar</button> -->
+    <script>
+        const messageElement = document.getElementById("message-id");
+        const messageText = messageElement.innerText;
+        const divMessage = document.getElementById("id-message-div");
+        const tempo = 150;
+
+        function criarMensagem(mensagem) {
+            divMessage.innerText = ""; 
+            
+            // divMessage.innerText = "Exibindo a mensagem: \n";
+            for(let i = 0; i < mensagem.length; i++) {
+                setTimeout(() => {
+                    divMessage.innerText += mensagem[i];
+                }, tempo * i);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            criarMensagem(messageText);
+        })
+    </script>
+</body>
+</html>
