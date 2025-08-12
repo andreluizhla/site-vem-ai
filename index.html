@@ -12,20 +12,20 @@
             font-family: "Outfit", sans-serif;
         }
 
-        html{
+        html, body {
             height: 100%;
         }
         
-        body{
+        body {
             background-image: linear-gradient(325deg, rgb(58, 46, 190), rgb(18, 129, 255));
-            width: 100%;
-            height: 100%;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
         }
 
-        #message-id {
+        .message {
             display: none;
         }
         
@@ -35,10 +35,24 @@
             word-break: break-word;
             font-weight: 900;
             color: white;
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            display: flex;
-            height: 100%;
+            width: 100%;
+        }
+
+        #id-botao {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background: white;
+            color: rgb(58, 46, 190);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
         }
 
         @media (max-width: 400px) {
@@ -73,38 +87,44 @@
     </style>
 </head>
 <body>
-    <p class="message" id="message-id">Vem aí as Matrículas...</p>
+    <p class="message" id="message-1">Vem aí</p>
+    <p class="message" id="message-2">Matrículas 2026...</p>
     <div class="message-div" id="id-message-div"></div>
     <button onclick="clique()" id="id-botao">Iniciar</button>
     <script>
-        const messageElement = document.getElementById("message-id");
-        const messageText = messageElement.innerText;
+        const message1 = document.getElementById("message-1");
+        const message2 = document.getElementById("message-2");
         const divMessage = document.getElementById("id-message-div");
-        const botao = document.getElementById("id-botao")
+        const botao = document.getElementById("id-botao");
         const tempo = 150;
+        const tempoEntreMensagens = 2000;
 
-        function criarMensagem(mensagem) {
-            divMessage.innerText = ""; 
-            
-            // divMessage.innerText = "Exibindo a mensagem: \n";
-            for(let i = 0; i < mensagem.length; i++) {
-                setTimeout(() => {
-                    divMessage.innerText += mensagem[i];
-                }, tempo * i);
+        function digitarMensagem(mensagem, callback) {
+            divMessage.innerHTML = ""; 
+            let i = 0;
+            function digitar() {
+                if (i < mensagem.length) {
+                    divMessage.innerHTML += mensagem.charAt(i);
+                    i++;
+                    setTimeout(digitar, tempo);
+                } else if (callback) {
+                    setTimeout(callback, tempoEntreMensagens);
+                }
             }
+            digitar();
+        }
+
+        function exibirMensagens() {
+            digitarMensagem(message1.innerText, function() {
+                digitarMensagem(message2.innerText);
+            });
         }
         
-        document.addEventListener('DOMContentLoaded', function() {
-            criarMensagem(messageText);
-        })
-
         function clique() {
-            setTimeout(
-                function() {
-                    botao.style.display = "none"
-                    criarMensagem(messageText)
-                }, 3000)
+            botao.style.display = "none";
+            exibirMensagens();
         }
+
     </script>
 </body>
 </html>
