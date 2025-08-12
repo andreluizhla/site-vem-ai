@@ -75,11 +75,12 @@
 <body>
     <p class="message" id="message-id">Vem aí as Matrículas...</p>
     <div class="message-div" id="id-message-div"></div>
-    <!-- <button onclick="clique()">Reiniciar</button> -->
+    <button onclick="clique()" id="id-botao">Iniciar</button>
     <script>
         const messageElement = document.getElementById("message-id");
         const messageText = messageElement.innerText;
         const divMessage = document.getElementById("id-message-div");
+        const botao = document.getElementById("id-botao")
         const tempo = 150;
 
         function criarMensagem(mensagem) {
@@ -96,6 +97,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             criarMensagem(messageText);
         })
+
+        function clique() {
+            setTimeout(
+                function() {
+                    botao.style.display = "none"
+                    criarMensagem(messageText)
+                }, 3000)
+        }
     </script>
 </body>
 </html>
